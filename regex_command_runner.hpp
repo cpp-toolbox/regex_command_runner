@@ -7,17 +7,17 @@
 #include <functional>
 
 class RegexCommandRunner {
-public:
+  public:
     struct RegexAction {
         std::string pattern_string;
         std::regex pattern;
-        std::function<void()> action;
+        std::function<void(const std::smatch &)> action;
     };
 
-    void add_regex(const std::string& pattern, std::function<void()> action);
-    void update_string(const std::string& new_string);
+    void add_regex(const std::string &pattern, std::function<void(const std::smatch &)> action);
+    bool potentially_run_command(const std::string &new_string);
 
-private:
+  private:
     std::vector<RegexAction> regex_action;
 };
 
